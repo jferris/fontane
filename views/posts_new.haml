@@ -1,0 +1,11 @@
+%form{ :action => '/posts', :method => 'post' }
+
+  %div.field.text
+    %label{ :for => 'post_title' } Title
+    %input{ :type => 'text', :name => 'post[title]', :id => 'post_title' }
+
+  %div.field.textarea
+    %label{ :for => 'post_body' } Body
+    %textarea{ :name => 'post[body]', :id => 'post_body' }
+
+  %input{ :type => 'submit', :value => 'Create Post' }
