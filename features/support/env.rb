@@ -1,11 +1,10 @@
-require 'webrat'
-require 'webrat/core/matchers'
-
 # RSpec matchers
 require 'spec/expectations'
 
 # Webrat
+gem 'jferris-webrat'
 require 'webrat'
+
 Webrat.configure do |config|
   config.mode = :sinatra
 end

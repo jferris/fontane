@@ -8,5 +8,6 @@ Feature: Create posts
     And I fill in "Title" with "A post title"
     And I fill in "body" with "A post body"
     And I press "Create Post"
+    Then I should see "Your post was successfully created."
     And I should see "A post title"
     And I should see "A post body"
