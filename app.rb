@@ -14,6 +14,15 @@ end
 
 use Rack::Session::Cookie
 
+get "/" do
+  haml :posts_index
+end
+
+get %r{/posts/(\d+)} do |post_id|
+  @post = Post.find(post_id)
+  haml :posts_show
+end
+
 get "/posts/new" do
   @post = Post.new
   haml :posts_new
@@ -29,9 +38,39 @@ post "/posts" do
   end
 end
 
-get %r{/posts/(\d+)} do |post_id|
-  @post = Post.find(post_id)
-  @notice = session[:notice]
-  session[:notice] = nil
-  haml :posts_show
+get "/sessions/new" do
+  haml :sessions_new
+end
+
+post "/sessions" do
+  if user = User.authenticate(params[:email], params[:password])
+    session[:notice] = "You have been successfully signed in."
+    session[:user_id] = user.id
+    redirect "/"
+  else
+    session[:notice] = "Invalid e-mail or password."
+    haml :sessions_new
+  end
+end
+
+get "/signout" do
+  session[:notice] = "You have been successfully signed out."
+  session[:user_id] = nil
+  redirect '/'
+end
+
+helpers do
+  def notice
+    result = session[:notice]
+    session[:notice] = nil
+    result
+  end
+
+  def signed_in_user
+    @signed_in_user ||= (session[:user_id] && User.find(session[:user_id]))
+  end
+
+  def signed_in?
+    session[:user_id].present?
+  end
 end

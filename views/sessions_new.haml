@@ -1,0 +1,11 @@
+%form{ :action => '/sessions', :method => 'post' }
+
+  %div.field.text
+    %label{ :for => 'user_email' } E-mail
+    %input{ :type => 'text', :name => 'email', :id => 'user_email' }
+
+  %div.field.text
+    %label{ :for => 'user_password' } Password
+    %input{ :type => 'password', :name => 'password', :id => 'user_password' }
+
+  %input{ :type => 'submit', :value => 'Sign In' }

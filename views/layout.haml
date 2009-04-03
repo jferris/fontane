@@ -2,5 +2,9 @@
   %head
     %title Blog
   %body
-    %p.notice= @notice
+    - if signed_in?
+      %p.signed_in
+        = "You are signed in as #{signed_in_user.email}."
+        %a{ :href => '/signout' } Sign Out
+    %p.notice= notice
     = yield
