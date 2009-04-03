@@ -15,14 +15,18 @@ end
 use Rack::Session::Cookie
 
 get "/posts/new" do
+  @post = Post.new
   haml :posts_new
 end
 
 post "/posts" do
   @post = Post.new(params[:post])
-  @post.save
-  session[:notice] = "Your post was successfully created."
-  redirect "/posts/#{@post.to_param}"
+  if @post.save
+    session[:notice] = "Your post was successfully created."
+    redirect "/posts/#{@post.to_param}"
+  else
+    haml :posts_new
+  end
 end
 
 get %r{/posts/(\d+)} do |post_id|

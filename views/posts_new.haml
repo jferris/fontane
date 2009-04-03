@@ -1,11 +1,17 @@
 %form{ :action => '/posts', :method => 'post' }
 
+  - unless @post.errors.empty?
+    %ul.errors
+      - @post.errors.full_messages.each do |error|
+        %li= html_escape(error)
+
   %div.field.text
     %label{ :for => 'post_title' } Title
-    %input{ :type => 'text', :name => 'post[title]', :id => 'post_title' }
+    %input{ :type => 'text', :name => 'post[title]', :id => 'post_title', :value => @post.title }
 
   %div.field.textarea
     %label{ :for => 'post_body' } Body
     %textarea{ :name => 'post[body]', :id => 'post_body' }
+      = html_escape(@post.body)
 
   %input{ :type => 'submit', :value => 'Create Post' }
