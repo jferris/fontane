@@ -1,0 +1,6 @@
+require 'sinatra/base'
+require 'haml'
+require 'activerecord'
+require 'fontane/post'
+require 'fontane/user'
+require 'fontane/app'
